@@ -13,6 +13,13 @@ Suicide is the act of intentionally causing one's own death. It can be due to ma
 
 The below is the Visualization on Suicides by Saloni Dattani, Lucas Rodes-Guirao, Hannah Ritchie, Max Roser, and Esteban Ortiz-Ospina. The research shows that suicide rates can be reduced with greater understanding and support. To do that the researchers considered or recognized suicide as a public health problem, and people should know that it can be prevented and its rates can be reduced.
 
+
+
+## Please watch the full project presentation on the following YouTube video
+
+{{< video https://www.youtube.com/watch?v=MDNMmd_fKms>}}
+
+
 ### **OLD VISUALIZATION:**
 
 ### ![](docs/docs/suicide-rate-image-mdb.svg)
@@ -85,8 +92,9 @@ In the previous visualization, the data was presented in a line graph for all co
 
 Based on the predictions shown in the map, Russia has the highest average suicide rates.
 
-```{r}
 # Load required libraries
+
+```{r}
 
 suppressWarnings({
  library(tidyverse)
