@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Re-visualization Project"
+  description: "A Global Suicide Data Visualization"
+  navbar:
+    right:
+      - href: home.qmd
+        text: "Home"
+      - href: about.qmd
+        text: "About"
+      - href: project_details.qmd
+        text: Project Summary
+      - href: project_source_code.qmd
+        text: Project source code
+      - href: References.qmd
+        text: "References"
+      - href: contact.qmd
+        text: "Contact"
+
+
+format:
+  html:
+    theme: solar
+    toc: true
+    fontsize: 0.9em
+    linestretch: 1.7
