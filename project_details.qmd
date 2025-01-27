@@ -1,5 +1,5 @@
 ---
-title: "Overview of the Re-visualization Project"
+title: "Projects"
 format: html
 editor: visual
 execute:
@@ -7,18 +7,724 @@ execute:
   warning: false
 ---
 
-## Introduction:
+![](road%20image.jpg)
+
+
+
+**Crash Clarity: Data-Driven Insights for Enhancing UK Road Safety using statistical models**
+
+**ABSTRACT**
+
+Road accidents and safety remain critical public health concerns worldwide, with significant societal, economic, and emotional impacts. In the United Kingdom, the government provides comprehensive data on road accidents through its Road Accident and Safety Statistics guidance. This academic project leverages these statistics to analyze and interpret the trends, patterns, and contributing factors associated with road accidents in the UK.
+
+The study explores key variables such as accident severity, weather and road conditions, time of day, and demographic factors, providing actionable insights into the circumstances under which accidents are most likely to occur. Utilizing advanced data visualization techniques, including interactive heatmaps and histograms, the project presents complex information in a clear and engaging manner to enhance understanding and foster data-driven decision-making.
+
+The findings emphasize the critical role of environmental and behavioral factors in road safety and aim to support policymakers, researchers, and road users in designing effective interventions to reduce accidents and improve safety measures. This project underscores the importance of leveraging statistical data to promote evidence-based strategies for safer transportation systems.
+
+```{r, echo=FALSE}
+# Load required libraries
+
+suppressWarnings({
+ library(tidyverse)
+library(ggplot2)
+library(plotly)  
+library(maps)
+library(leaflet)
+library(readr)
+
+library(plotly)
+library(dplyr)
+library(viridis) 
+library(rnaturalearth)  # For loading world map data
+
+
+})
+
+```
+
+```{r, echo=FALSE}
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(plotly)
+
+# Load the data
+road_casualities <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Data Cleaning Steps
+# 1. Remove rows with missing or NA values in important columns
+road_casualities <- road_casualities %>%
+  filter(!is.na(accident_severity), 
+         !is.na(weather_conditions), 
+         !is.na(road_surface_conditions))
+
+# 2. Ensure the accident_severity column has valid values (1, 2, 3)
+road_casualities <- road_casualities %>%
+  filter(accident_severity %in% c(1, 2, 3))
+
+# 3. Convert necessary columns to factors
+road_casualities$accident_severity <- factor(road_casualities$accident_severity, 
+                                 levels = c(1, 2, 3),
+                                 labels = c("Life-Threatening", "Significant", "Mild"))
+road_casualities$weather_conditions <- as.factor(road_casualities$weather_conditions)
+road_casualities$road_surface_conditions <- as.factor(road_casualities$road_surface_conditions)
+road_casualities$urban_or_rural_area <- as.factor(road_casualities$urban_or_rural_area)
+
+# 4. Remove duplicates if any
+road_casualities <- road_casualities %>% distinct()
+```
+
+**Visualizing Accident Severity Distribution**
+
+This interactive histogram presents a comprehensive analysis of road accident severity levels categorized as *Life-Threatening,* *Significant*, and *Mild.* Each category is visually distinguished using a specific color palette, with red denoting *Life-Threatening* accidents, orange representing *Significant* accidents, and green for *Mild* cases. The visualization provides an intuitive understanding of the frequency distribution of these severity levels, enabling researchers and policymakers to identify patterns and focus on mitigating the most critical accident types. The interactivity of the graph allows for an in-depth examination of accident counts, enhancing data-driven decision-making and supporting evidence-based road safety interventions.
+
+```{r, echo=FALSE}
+
+
+# Visualization with Cleaned Data
+# Assign updated custom colors for each severity level
+severity_colors <- c("Life-Threatening" = "red", 
+                     "Significant" = "darkorange", 
+                     "Mild" = "darkgreen")
+
+# Create an Interactive Histogram with Updated Colors
+histogram <- ggplot(road_casualities, aes(x = accident_severity, fill = accident_severity)) +
+  geom_bar(alpha = 0.7, color = "black") +
+  scale_fill_manual(values = severity_colors) +
+  labs(title = "Distribution of Accident Severity",
+       x = "Accident Severity",
+       y = "Count") 
+
+# Convert to interactive using plotly
+interactive_histogram <- ggplotly(histogram, tooltip = c("count", "x"))
+
+# Display the interactive histogram
+interactive_histogram
+```
+
+**Temporal Analysis of Road Accidents by Time Bands**
+
+This interactive visualization categorizes road accidents into five time bands: "Night (Midnight to 5 AM)," "Morning Rush Hour," "Daytime," "Evening Rush Hour," and "Night (8 PM to 11 PM)" using STATS20 guidance. The bar plot highlights accident frequencies with a gradient color scheme, showing the highest occurrences during "Daytime" and "Evening Rush Hour".
+
+These insights help identify high-risk periods, enabling policymakers and researchers to develop targeted road safety strategies. The interactive design allows for detailed exploration of accident patterns.
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(plotly)
+
+# Load dataset
+road_casualities <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Convert time column to a usable format (assuming time is in 24-hour format)
+road_casualities$time_of_day <- as.numeric(substr(road_casualities$time, 1, 2))
+
+# Define time bands based on STATS20 guidance
+road_casualities$time_band <- cut(
+  road_casualities$time_of_day,
+  breaks = c(-1, 5, 9, 15, 19, 23),
+  labels = c("Night (Midnight to 5 AM)", 
+             "Morning Rush Hour", 
+             "Daytime", 
+             "Evening Rush Hour", 
+             "Night (8 PM to 11 PM)")
+)
+
+# Aggregate the data by time bands
+time_band_summary <- road_casualities %>%
+  group_by(time_band) %>%
+  summarise(total_accidents = n()) %>%
+  arrange(desc(total_accidents))
+
+# Create a ggplot object with gradient colors
+time_band_plot <- ggplot(time_band_summary, aes(x = time_band, y = total_accidents, fill = total_accidents)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.8) +
+  labs(
+    title = "Accidents by Time Bands ",
+    x = "Time Band",
+    y = "Number of Accidents"
+  ) +
+  scale_fill_gradient(low = "pink", high = "red", name = "Total Accidents") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Convert the plot to interactive using plotly
+interactive_time_band_plot <- ggplotly(time_band_plot, tooltip = c("x", "y"))
+
+# Display the interactive plot
+interactive_time_band_plot
+```
+
+**Accidents by Weather and Light Conditions**
+
+This interactive heatmap analyzes the influence of weather and light conditions on road accidents, highlighting combinations like "Fine without high winds" and "Daylight" with the highest frequencies. A gradient color scale emphasizes accident intensity, with data labels providing exact counts. The visualization aids in identifying high-risk conditions to inform targeted safety measures.
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(plotly)
+library(dplyr)
+
+# Define light condition mapping (STATS20)
+light_conditions_map <- c(
+  "1" = "Daylight",
+  "4" = "Dark (street lights present and lit)",
+  "5" = "Dark (street lights present but unlit)",
+  "6" = "Dark (no street lights)",
+  "7" = "Other"
+)
+
+# Map light conditions
+road_casualities$light_conditions <- as.factor(
+  light_conditions_map[as.character(road_casualities$light_conditions)]
+)
+
+# Ensure weather conditions are mapped
+weather_conditions_map <- c(
+  "1" = "Fine without high winds",
+  "2" = "Raining without high winds",
+  "3" = "Snowing without high winds",
+  "4" = "Fine with high winds",
+  "5" = "Raining with high winds",
+  "6" = "Snowing with high winds",
+  "7" = "Fog or mist",
+  "8" = "Other",
+  "9" = "Unknown"
+)
+
+road_casualities$weather_conditions <- as.factor(
+  weather_conditions_map[as.character(road_casualities$weather_conditions)]
+)
+
+# Create summary data for heatmap
+heatmap_data <- road_casualities %>%
+  group_by(weather_conditions, light_conditions) %>%
+  summarise(total_accidents = n(), .groups = "drop")
+
+# Create the heatmap with data labels and contrasting colors
+heatmap_plot <- ggplot(heatmap_data, aes(x = weather_conditions, y = light_conditions, fill = total_accidents)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = total_accidents), color = "black", size = 3) +  # Add data labels
+  scale_fill_gradient(low = "#f9f9f9", high = "#d73027", name = "Total Accidents") +
+  labs(
+    title = "Accidents by Weather and Light Conditions",
+    x = "Weather Conditions",
+    y = "Light Conditions"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    plot.title = element_text(size = 14, face = "bold"),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 8)
+  )
+
+# Make the heatmap interactive
+interactive_heatmap <- ggplotly(heatmap_plot, tooltip = c("x", "y", "fill"))
+interactive_heatmap
+```
+
+**Impact of Weather Conditions on Road Accidents**
+
+This interactive bar plot presents the distribution of road accidents under various weather conditions, highlighting categories such as *Fine without high winds* *Raining without high winds,* and *Fog or mist.* The gradient color scale, ranging from light pink to deep red, emphasizes the frequency of accidents, with higher counts visually more prominent. Tooltips provide precise accident counts for each weather condition, enhancing the interpret ability of the data.
+
+The visualization reveals that the majority of accidents occur under *Fine without high winds,* suggesting that favorable weather does not necessarily mitigate risk. Such insights are critical for policymakers and researchers to understand environmental influences on road safety and to develop targeted prevention strategies.
+
+```{r, echo=FALSE}
+library(ggplot2)
+library(plotly)
+library(dplyr)
+
+# Load the dataset
+road_casualities <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Define weather condition mapping
+weather_conditions_map <- c(
+  "1" = "Fine without high winds",
+  "2" = "Raining without high winds",
+  "3" = "Snowing without high winds",
+  "4" = "Fine with high winds",
+  "5" = "Raining with high winds",
+  "6" = "Snowing with high winds",
+  "7" = "Fog or mist",
+  "8" = "Other",
+  "9" = "Unknown"
+)
+
+# Map weather conditions
+road_casualities$weather_conditions_desc <- as.factor(weather_conditions_map[as.character(road_casualities$weather_conditions)])
+
+# Summarize the data to get accident counts by weather condition
+weather_summary <- road_casualities %>%
+  group_by(weather_conditions_desc) %>%
+  summarise(total_accidents = n(), .groups = "drop")
+
+# Add a clean label for the tooltip
+weather_summary$tooltip_label <- paste0(
+  "Weather: ", weather_summary$weather_conditions_desc, 
+  "<br>Total Accidents: ", weather_summary$total_accidents
+)
+
+# Create a bar plot with dynamic red shading
+weather_plot <- ggplot(weather_summary, aes(
+  x = reorder(weather_conditions_desc, -total_accidents), 
+  y = total_accidents, 
+  fill = total_accidents, 
+  text = tooltip_label  # Use clean tooltip labels
+)) +
+  geom_bar(stat = "identity", color = "black", alpha = 0.8) +
+  scale_fill_gradient(low = "#FFC1C1", high = "#8B0000", name = "Total Accidents") +
+  labs(
+    title = "Accidents by Weather Conditions",
+    x = "Weather Conditions",
+    y = "Number of Accidents"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8), # Rotate and reduce text size
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title.x = element_text(size = 10),
+    axis.title.y = element_text(size = 10)
+  )
+
+# Make it interactive and use the clean tooltip
+interactive_weather_plot <- ggplotly(weather_plot, tooltip = "text")
+interactive_weather_plot
+```
+
+**Accidents by Road Surface Conditions**
+
+This interactive bar plot examines the distribution of road accidents across various surface conditions based on STATS19 classifications, such as *Dry,* *Wet or damp,* and *Snow.* Each condition is color-coded for clarity, with tooltips providing detailed accident counts for enhanced interpretability.
+
+The analysis reveals that the majority of accidents occur on *Dry* surfaces, followed by *Wet or damp* conditions, while adverse surfaces like *Flood* and *Mud* show significantly lower frequencies. These findings emphasize the need to consider surface conditions when implementing road safety measures, particularly for common scenarios like wet or dry roads. The visualization supports data-driven strategies for reducing accidents under diverse environmental conditions.
+
+```{r, echo=FALSE}
+# Load the dataset
+road_casualities <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(plotly)
+
+# Define STATS19 road surface condition mapping
+road_conditions_map <- c(
+  "1" = "Dry",
+  "2" = "Wet or damp",
+  "3" = "Snow",
+  "4" = "Frost or ice",
+  "5" = "Flood",
+  "6" = "Oil or diesel",
+  "7" = "Mud",
+  "8" = "Other",
+  "9" = "Unknown"
+)
+
+# Step 1: Filter valid road_surface_conditions values (1 to 9)
+road_casualities <- road_casualities %>%
+  filter(road_surface_conditions %in% c(1:9))
+
+# Step 2: Map road conditions to descriptions
+road_casualities$road_conditions_desc <- as.factor(
+  road_conditions_map[as.character(road_casualities$road_surface_conditions)]
+)
+
+
+
+# Step 3: Aggregate data by road surface condition
+road_summary <- road_casualities %>%
+  group_by(road_conditions_desc) %>%
+  summarise(total_accidents = n()) %>%
+  arrange(desc(total_accidents))
+
+
+
+# Step 4: Create the bar plot
+road_plot <- ggplot(road_summary, aes(
+  x = reorder(road_conditions_desc, -total_accidents), 
+  y = total_accidents, 
+  fill = road_conditions_desc, 
+  text = paste0(road_conditions_desc, ": ", total_accidents, " accidents")
+)) +
+  geom_bar(stat = "identity", alpha = 0.8, color = "black") +
+  labs(
+    title = "Distribution of Accidents by Road Surface Conditions",
+    x = "Road Surface Conditions",
+    y = "Number of Accidents"
+  ) +
+  scale_fill_manual(values = c(
+    "Dry" = "red",
+    "Wet or damp" = "#73a2c6",
+    "Snow" = "#1b9e77",
+    "Frost or ice" = "#d95f02",
+    "Flood" = "#7570b3",
+    "Oil or diesel" = "#e7298a",
+    "Mud" = "#66a61e",
+    "Other" = "#e6ab02",
+    "Unknown" = "#a6761d"
+  )) 
+
+# Convert the plot to an interactive plot
+interactive_road_plot <- ggplotly(road_plot, tooltip = "text")
+
+# Display the interactive plot
+interactive_road_plot
+```
+
+### Random Forest Model to find What combination of factors most strongly predicts accident severity?
+
+A Random Forest model was developed to classify accident severity based on features such as weather conditions, road surface conditions, number of vehicles, and urban or rural location. The model, trained on 100 decision trees, achieved robust classification with reasonable AUC values across all severity levels, as visualized in the ROC curves for each class.
+
+The feature importance plot highlights "Weather Conditions" and "Road Surface Conditions" as the most significant predictors of accident severity, followed by "Number of Vehicles" and "Urban or Rural Area." These insights provide valuable guidance for prioritizing interventions and refining predictive models to improve road safety outcomes. The analysis underscores the importance of environmental and contextual factors in accident severity classification.
+
+```{r, echo=FALSE}
+# Load necessary libraries
+# Load necessary libraries
+library(randomForest)
+library(pROC)
+library(caret)
+
+# Read the dataset
+data <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Select relevant features and target variable
+features <- c("weather_conditions", "number_of_vehicles", "road_surface_conditions", "urban_or_rural_area")
+target <- "accident_severity"
+
+# Filter data to include only relevant columns and remove rows with missing values
+data_cleaned <- na.omit(data[, c(features, target)])
+
+# Convert target variable to factor for classification
+data_cleaned$accident_severity <- as.factor(data_cleaned$accident_severity)
+
+# Split data into training and testing sets
+set.seed(42)
+train_index <- createDataPartition(data_cleaned$accident_severity, p = 0.8, list = FALSE)
+train_data <- data_cleaned[train_index, ]
+test_data <- data_cleaned[-train_index, ]
+
+# Train a Random Forest model
+rf_model <- randomForest(
+  accident_severity ~ .,
+  data = train_data,
+  ntree = 100,
+  importance = TRUE
+)
+
+
+# Predict probabilities on the test set
+rf_probabilities <- predict(rf_model, newdata = test_data, type = "prob")
+
+# Draw AUC Curve for each class using one-vs-all approach
+auc_values <- list()
+for (i in 1:ncol(rf_probabilities)) {
+  class_label <- colnames(rf_probabilities)[i]
+  roc_curve <- roc(as.numeric(test_data$accident_severity == class_label), 
+                   rf_probabilities[, i], 
+                   plot = TRUE, 
+                   main = paste("ROC Curve for Class", class_label), 
+                   col = i)
+  auc_values[[class_label]] <- auc(roc_curve)
+}
+
+# Visualize feature importance
+varImpPlot(rf_model, main = "Feature analysis by Random Forest Model")
+
+```
+
+### Multinomial Logistic Regression Analysis of Accident Severity by Weather Conditions
+
+A multinomial logistic regression model was developed to examine the relationship between accident severity and weather conditions using a cleaned subset of the dataset. The dataset was partitioned into training (80%) and testing (20%) subsets to ensure robust evaluation. The model achieved convergence after 10 iterations, with residual deviance and AIC values of 100785 and 100793, respectively.
+
+The confusion matrix revealed that the model performed well in classifying higher severity levels, achieving an overall accuracy of 76.06%. The coefficients indicate a positive association between weather conditions and accident severity, suggesting that as adverse weather conditions increase, the likelihood of severe accidents also rises. These findings underscore the critical role of weather in road safety and provide insights for preventive measures.
+
+*ROC Curve Analysis for Multinomial Logistic Regression Model*
+
+The ROC curve illustrates the predictive performance of the multinomial logistic regression model in classifying accident severity levels (Fatal, Serious, and Slight) based on weather conditions. One-vs-all ROC curves were generated for each class, with distinct color coding: red for Fatal, blue for Serious, and green for Slight.
+
+The curves largely overlap with the diagonal reference line, indicating limited separation between true positive and false positive rates. As a more distanced ROC curve signifies better model performance, these results suggest the need for further feature refinement or model optimization to improve classification accuracy. The AUC values, though reasonable, highlight areas for potential enhancement in predictive capability.
+
+```{r, echo=FALSE}
+# Load necessary libraries
+library(nnet)  # For multinomial logistic regression
+library(caret) # For data partitioning
+library(pROC)  # For AUC and ROC curves
+
+# Read the dataset
+data <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Select relevant columns and remove rows with missing values
+data_cleaned <- na.omit(data[, c("accident_severity", "weather_conditions")])
+
+# Convert columns to factors and numeric types
+data_cleaned$accident_severity <- as.factor(data_cleaned$accident_severity)
+data_cleaned$weather_conditions <- as.numeric(data_cleaned$weather_conditions)
+
+# Split the dataset into training and testing sets
+set.seed(42)
+train_index <- createDataPartition(data_cleaned$accident_severity, p = 0.8, list = FALSE)
+train_data <- data_cleaned[train_index, ]
+test_data <- data_cleaned[-train_index, ]
+
+# Train multinomial logistic regression model
+multinom_model <- multinom(accident_severity ~ weather_conditions, data = train_data)
+
+# Predict probabilities for the test data
+probabilities <- predict(multinom_model, newdata = test_data, type = "probs")
+
+# Create one-vs-all ROC curves for each class
+roc_curve_1 <- roc(as.numeric(test_data$accident_severity == 1), probabilities[, 1], plot = TRUE, col = "red", main = "ROC Curve for Multinomial Logistic Regression")
+roc_curve_2 <- roc(as.numeric(test_data$accident_severity == 2), probabilities[, 2], plot = TRUE, col = "blue", add = TRUE)
+roc_curve_3 <- roc(as.numeric(test_data$accident_severity == 3), probabilities[, 3], plot = TRUE, col = "green", add = TRUE)
+
+# Add legend
+legend("bottomright", legend = c("Class 1 (Fatal)", "Class 2 (Serious)", "Class 3 (Slight)"),
+       col = c("red", "blue", "green"), lwd = 2)
+
+# Compute AUC for each class
+auc_1 <- auc(roc_curve_1)
+auc_2 <- auc(roc_curve_2)
+auc_3 <- auc(roc_curve_3)
+```
+
+```{r, echo=FALSE}
+
+library(ggplot2)
+effect_data <- data.frame(
+  weather_conditions = seq(min(train_data$weather_conditions), max(train_data$weather_conditions), length.out = 100)
+)
+effect_data$prob_class1 <- predict(multinom_model, newdata = effect_data, type = "probs")[, 1]
+effect_data$prob_class2 <- predict(multinom_model, newdata = effect_data, type = "probs")[, 2]
+effect_data$prob_class3 <- predict(multinom_model, newdata = effect_data, type = "probs")[, 3]
+
+ggplot(effect_data, aes(x = weather_conditions)) +
+  geom_line(aes(y = prob_class1, color = "Class 1")) +
+  geom_line(aes(y = prob_class2, color = "Class 2")) +
+  geom_line(aes(y = prob_class3, color = "Class 3")) +
+  labs(title = "Effect of Weather Conditions on Accident Severity",
+       y = "Probability", x = "Weather Conditions") +
+  scale_color_manual(values = c("red", "blue", "green"))
+```
+
+### Logistic Regression for Binary Accident Severity Classification to predict accident severity by rural vs urban areas in certain weather conditions.
+
+A logistic regression model was employed to classify accident severity into binary categories: "Slight" (1) and "Fatal/Serious" (0), using features such as urban or rural area and weather conditions. The model showed a modest reduction in residual deviance (from 91810 to 91030), with an AIC of 91040, suggesting limited improvement over the null model.
+
+The ROC curve yielded an AUC value of 0.5498, indicating the model's predictive performance is slightly better than random chance. The negative coefficient for "urban_or_rural_area" suggests that accidents in urban areas are more likely to be classified as "Slight," while the positive coefficient for "weather_conditions" implies a weak association with increased severity. Overall, the model demonstrates minimal predictive capability and requires additional features or refinement to achieve better classification accuracy and practical applicability.
+
+```{r, echo=FALSE, results='hide'}
+# Load necessary libraries
+library(nnet)    # For logistic regression
+library(pROC)    # For ROC curve and AUC
+library(caret)   # For data partitioning
+
+# Read the dataset
+data <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Select relevant columns and remove rows with missing values
+data_cleaned <- na.omit(data[, c("accident_severity", "urban_or_rural_area", "weather_conditions")])
+
+# Create a binary target variable (1 for Slight, 0 for Fatal and Serious)
+data_cleaned$binary_severity <- ifelse(data_cleaned$accident_severity == 3, 1, 0)
+
+# Convert necessary columns to numeric/factor
+data_cleaned$binary_severity <- as.factor(data_cleaned$binary_severity)
+data_cleaned$urban_or_rural_area <- as.numeric(data_cleaned$urban_or_rural_area)
+data_cleaned$weather_conditions <- as.numeric(data_cleaned$weather_conditions)
+
+# Split the dataset into training and testing sets
+set.seed(42)
+train_index <- createDataPartition(data_cleaned$binary_severity, p = 0.8, list = FALSE)
+train_data <- data_cleaned[train_index, ]
+test_data <- data_cleaned[-train_index, ]
+
+# Train logistic regression model
+logistic_model <- glm(binary_severity ~ urban_or_rural_area + weather_conditions, 
+                      data = train_data, 
+                      family = binomial)
+
+# Predict probabilities for the test data
+probabilities <- predict(logistic_model, newdata = test_data, type = "response")
+
+# Create the ROC curve
+roc_curve <- roc(test_data$binary_severity, probabilities, plot = TRUE, col = "blue",
+                 main = "ROC Curve for Binary Classification")
+
+# Compute the AUC
+auc_value <- auc(roc_curve)
+
+# Add the AUC value to the plot
+text(x = 0.6, y = 0.2, labels = paste("AUC =", round(auc_value, 3)), col = "blue", cex = 1.2)
+
+
+# Compute and print AUC
+auc_value <- auc(roc_curve)
+```
+
+### Lasso Logistic Regression for Binary Classification of Accident Severity
+
+A Lasso logistic regression model was applied to classify accident severity into binary categories ("Slight" vs. "Fatal/Serious") using features such as urban or rural area and weather conditions. The model employed cross-validation to identify the optimal regularization parameter (lambda.min), ensuring reduced overfitting and improved generalizability.
+
+The ROC curve yielded an AUC of 0.5514, indicating a marginally better performance than random guessing. The close proximity of the ROC curve to the diagonal reference line suggests limited predictive power. While the model effectively reduces feature complexity, the low AUC highlights the need for additional predictive variables or refined feature engineering to improve classification accuracy and ensure practical applicability.
+
+```{r, echo=FALSE}
+library(glmnet)
+
+# Prepare data for glmnet
+X <- as.matrix(train_data[, c("urban_or_rural_area", "weather_conditions")])
+y <- as.numeric(train_data$binary_severity) - 1
+
+# Train Lasso logistic regression
+lasso_model <- cv.glmnet(X, y, family = "binomial", alpha = 1)
+
+# Predict probabilities for test data
+test_X <- as.matrix(test_data[, c("urban_or_rural_area", "weather_conditions")])
+lasso_probabilities <- predict(lasso_model, newx = test_X, s = "lambda.min", type = "response")
+
+# Evaluate using ROC and AUC
+# Evaluate using ROC and AUC
+lasso_roc <- roc(as.numeric(test_data$binary_severity), lasso_probabilities, plot = TRUE, col = "blue",
+                 main = "ROC Curve for Lasso Logistic Regression")
+
+# Compute the AUC value
+lasso_auc <- auc(lasso_roc)
+
+# Add the AUC value as text on the plot
+text(x = 0.6, y = 0.2, labels = paste("AUC =", round(lasso_auc, 3)), col = "blue", cex = 1.2)
+
+# Optionally, add a diagonal line for random guessing
+abline(a = 0, b = 1, col = "gray", lty = 2)
+```
+
+### Lasso Logistic Regression for Predicting Accident Severity including more variables
+
+A Lasso logistic regression model was implemented to classify accident severity into binary categories: "Severe" (1) and "Slight" (0). The model utilized key features such as road surface conditions, weather conditions, urban or rural area, and time of day. Cross-validation identified the optimal regularization parameter (lambda.min), ensuring feature selection and preventing over fitting.
+
+The model achieved an AUC of 0.612, which is the highest among all models evaluated, as visualized through the ROC curve. This indicates improved predictive performance and better discriminatory power compared to earlier approaches. Feature coefficients highlighted the importance of road surface conditions and urban/rural areas as significant predictors. While the model demonstrates improved performance, further enhancements could refine its applicability for real-world scenarios.
+
+```{r, echo=FALSE}
+# Load necessary libraries
+library(glmnet)
+library(pROC)
+
+# Load the dataset
+data <- read.csv("C:\\Users\\Venkata\\Desktop\\stat1\\Final project\\casualty_statistics.csv")
+
+# Define selected features and target variable
+selected_features <- c("accident_severity", "number_of_vehicles", "road_surface_conditions", 
+                       "weather_conditions", "urban_or_rural_area", "special_conditions_at_site", 
+                       "day_of_week", "time", "junction_detail", "speed_limit")
+
+# Check if selected features exist in the dataset
+if (!all(selected_features %in% colnames(data))) {
+  missing_features <- selected_features[!selected_features %in% colnames(data)]
+  stop(paste("The following features are missing from the dataset:", paste(missing_features, collapse = ", ")))
+}
+
+# Filter the dataset for selected features and remove rows with missing values
+data_cleaned <- na.omit(data[, selected_features])
+
+# Create a binary target variable for classification
+# Severe (1) = accident_severity 1 or 2, Slight (0) = accident_severity 3
+data_cleaned$binary_severity <- ifelse(data_cleaned$accident_severity == 3, 0, 1)
+
+# Feature engineering: Convert 'time' into 'time_of_day' (e.g., Morning, Afternoon, Night)
+data_cleaned$time <- as.numeric(sub("^(\\d{2}):.*$", "\\1", data_cleaned$time)) # Extract hour
+data_cleaned$time_of_day <- cut(data_cleaned$time, 
+                                breaks = c(-1, 6, 12, 18, 24), 
+                                labels = c("Night", "Morning", "Afternoon", "Evening"))
+
+# Drop unnecessary columns (original 'time' and 'accident_severity')
+data_cleaned <- data_cleaned[, !(names(data_cleaned) %in% c("time", "accident_severity"))]
+
+# Convert categorical variables into factors
+categorical_vars <- c("road_surface_conditions", "weather_conditions", "urban_or_rural_area", 
+                      "special_conditions_at_site", "day_of_week", "time_of_day", "junction_detail")
+data_cleaned[categorical_vars] <- lapply(data_cleaned[categorical_vars], as.factor)
+
+# Prepare data for glmnet
+X <- model.matrix(binary_severity ~ ., data_cleaned)[, -1] # Remove intercept
+y <- data_cleaned$binary_severity
+
+# Split data into training and testing sets
+set.seed(42)
+train_index <- sample(1:nrow(X), size = 0.8 * nrow(X))
+train_X <- X[train_index, ]
+train_y <- y[train_index]
+test_X <- X[-train_index, ]
+test_y <- y[-train_index]
+
+# Train Lasso Logistic Regression model
+lasso_model <- cv.glmnet(train_X, train_y, family = "binomial", alpha = 1)
+
+# Predict probabilities for test data
+lasso_probabilities <- predict(lasso_model, newx = test_X, s = "lambda.min", type = "response")
+
+# Evaluate using ROC and AUC
+# Plot the ROC curve and display the AUC value
+lasso_roc <- roc(test_y, lasso_probabilities, plot = TRUE, col = "blue",
+                 main = "ROC Curve for Lasso Logistic Regression")
+
+# Calculate the AUC value
+lasso_auc <- auc(lasso_roc)
+
+# Add the AUC value to the plot
+text(x = 0.6, y = 0.2, labels = paste("AUC =", round(lasso_auc, 3)), col = "blue", cex = 1.2)
+
+# Optionally, add a diagonal line for reference
+abline(a = 0, b = 1, col = "gray", lty = 2)
+
+
+# Add the AUC value as text on the plot
+text(x = 0.6, y = 0.2, labels = paste("AUC =", round(lasso_auc, 3)), col = "blue", cex = 1.2)
+
+
+
+# Extract coefficients from the Lasso model
+coefficients <- as.matrix(coef(lasso_model, s = "lambda.min"))  # Convert to a matrix
+
+# Identify non-zero coefficients and corresponding features
+non_zero_indices <- which(coefficients != 0)  # Find non-zero coefficients
+non_zero_coefficients <- coefficients[non_zero_indices]  # Extract non-zero coefficients
+feature_names <- rownames(coefficients)[non_zero_indices]  # Extract corresponding feature names
+
+# Create the feature importance data frame
+feature_importance <- data.frame(
+  Feature = feature_names,
+  Coefficient = as.numeric(non_zero_coefficients)
+)
+
+# Load necessary libraries
+library(plotly)
+
+
+
+# Remove the intercept from the data
+feature_importance <- feature_importance[feature_importance$Feature != "(Intercept)", ]
+
+# Filter top 10 positive and negative coefficients
+top_features <- feature_importance %>%
+  arrange(desc(abs(Coefficient))) %>%  # Sort by absolute coefficient
+  head(11)   
+
+# Create the plot without the intercept
+ggplot(top_features, aes(x = reorder(Feature, Coefficient), y = Coefficient, fill = Coefficient > 0)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_fill_manual(values = c("blue", "red"), labels = c("Negative", "Positive")) +
+  labs(title = "Top Feature Importance from Lasso Logistic ",
+       x = "Features",
+       y = "Coefficient",
+       fill = "Effect") +
+  theme_minimal(base_size = 14)
+
+```
+
+## Re-visualization Project Using R-language Introduction:
 
 Suicide is the act of intentionally causing one's own death. It can be due to many conditions or the situations. It includes Mental disorders, physical disorders, and substance abuse are the risk factors. Suicides resulted in 828,000 deaths globally in 2015, an increase from 712,000 deaths in 1990. This makes suicide the 10th leading cause of death worldwide. Every death from suicide is a tragedy.
 
 The below is the Visualization on Suicides by Saloni Dattani, Lucas Rodes-Guirao, Hannah Ritchie, Max Roser, and Esteban Ortiz-Ospina. The research shows that suicide rates can be reduced with greater understanding and support. To do that the researchers considered or recognized suicide as a public health problem, and people should know that it can be prevented and its rates can be reduced.
 
-
-
 ## Please watch the full project presentation on the following YouTube video
 
 {{< video https://www.youtube.com/watch?v=MDNMmd_fKms>}}
-
 
 ### **OLD VISUALIZATION:**
 

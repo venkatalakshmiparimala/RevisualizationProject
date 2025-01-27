@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Re-visualization Project"
+  title: "Venkata Lakshmi Parimala Pasupuleti"
   description: "A Global Suicide Data Visualization"
   navbar:
     right:
@@ -12,7 +12,7 @@ website:
       - href: about.qmd
         text: "About"
       - href: project_details.qmd
-        text: Project Summary
+        text: Graduate Projects
       - href: project_source_code.qmd
         text: Project source code
       - href: References.qmd
