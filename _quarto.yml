@@ -4,11 +4,9 @@ project:
 
 website:
   title: "Venkata Lakshmi Parimala Pasupuleti"
-  description: "A Global Suicide Data Visualization"
+  description: "A portfolio website"
   navbar:
     right:
-      - href: home.qmd
-        text: "Home"
       - href: about.qmd
         text: "About"
       - href: project_details.qmd

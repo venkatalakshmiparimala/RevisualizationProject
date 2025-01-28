@@ -7,11 +7,9 @@ execute:
   warning: false
 ---
 
-![](road%20image.jpg)
-
-
-
-**Crash Clarity: Data-Driven Insights for Enhancing UK Road Safety using statistical models**
+**Crash Clarity: Data-Driven Insights for Enhancing UK Road Safety using statistical models\
+\
+**![](images/road image.jpg)
 
 **ABSTRACT**
 
@@ -156,70 +154,6 @@ interactive_time_band_plot
 **Accidents by Weather and Light Conditions**
 
 This interactive heatmap analyzes the influence of weather and light conditions on road accidents, highlighting combinations like "Fine without high winds" and "Daylight" with the highest frequencies. A gradient color scale emphasizes accident intensity, with data labels providing exact counts. The visualization aids in identifying high-risk conditions to inform targeted safety measures.
-
-```{r, echo=FALSE}
-library(ggplot2)
-library(plotly)
-library(dplyr)
-
-# Define light condition mapping (STATS20)
-light_conditions_map <- c(
-  "1" = "Daylight",
-  "4" = "Dark (street lights present and lit)",
-  "5" = "Dark (street lights present but unlit)",
-  "6" = "Dark (no street lights)",
-  "7" = "Other"
-)
-
-# Map light conditions
-road_casualities$light_conditions <- as.factor(
-  light_conditions_map[as.character(road_casualities$light_conditions)]
-)
-
-# Ensure weather conditions are mapped
-weather_conditions_map <- c(
-  "1" = "Fine without high winds",
-  "2" = "Raining without high winds",
-  "3" = "Snowing without high winds",
-  "4" = "Fine with high winds",
-  "5" = "Raining with high winds",
-  "6" = "Snowing with high winds",
-  "7" = "Fog or mist",
-  "8" = "Other",
-  "9" = "Unknown"
-)
-
-road_casualities$weather_conditions <- as.factor(
-  weather_conditions_map[as.character(road_casualities$weather_conditions)]
-)
-
-# Create summary data for heatmap
-heatmap_data <- road_casualities %>%
-  group_by(weather_conditions, light_conditions) %>%
-  summarise(total_accidents = n(), .groups = "drop")
-
-# Create the heatmap with data labels and contrasting colors
-heatmap_plot <- ggplot(heatmap_data, aes(x = weather_conditions, y = light_conditions, fill = total_accidents)) +
-  geom_tile(color = "white") +
-  geom_text(aes(label = total_accidents), color = "black", size = 3) +  # Add data labels
-  scale_fill_gradient(low = "#f9f9f9", high = "#d73027", name = "Total Accidents") +
-  labs(
-    title = "Accidents by Weather and Light Conditions",
-    x = "Weather Conditions",
-    y = "Light Conditions"
-  ) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-    axis.text.y = element_text(size = 10),
-    plot.title = element_text(size = 14, face = "bold"),
-    legend.title = element_text(size = 10),
-    legend.text = element_text(size = 8)
-  )
-
-# Make the heatmap interactive
-interactive_heatmap <- ggplotly(heatmap_plot, tooltip = c("x", "y", "fill"))
-interactive_heatmap
-```
 
 **Impact of Weather Conditions on Road Accidents**
 
@@ -1130,7 +1064,6 @@ bar_plot <- ggplot(avg_suicide_rate, aes(x = reorder(Entity, suscide_Rate),
        x = "Country", 
        y = "Average Suicide Rate per 100,000 Population") +
   theme(axis.text.y = element_text(angle = 0, hjust = 1, size = 8)) +  # Adjust text angle and size
-  theme(plot.margin = margin(10, 10, 10, 40)) +  # Adjust margins
   guides(fill = guide_legend(title = "Suicide Rate per 100,000"))  # Change the legend title
 
 # Convert to an interactive plot with plotly

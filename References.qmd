@@ -6,13 +6,16 @@ editor: visual
 
 The data and insights used in this project are sourced from the following:
 
-Data CSV: - [Download file1.csv](suicide-rates-all.csv){download="suicide-rates-all.csv"}
-- [Download file2.csv](suicide-rates-by-age.csv){download="suicide-rates-by-age.csv"}
+Data CSV: - [Download file1.csv](suicide-rates-all.csv){download="suicide-rates-all.csv"} - [Download file2.csv](suicide-rates-by-age.csv){download="suicide-rates-by-age.csv"} [casualty_statistics.csv](casualty_statistics.csv){download="casualty_statistics.csv"}
 
 Click the links above to download the CSV files used for the analysis.
 
 # References
 
 \[1\] "Suicide," Our World in Data. \[Online\]. Available: <https://ourworldindata.org/suicide>. \[Accessed: Oct. 8, 2024\].
+
+\[2\] Department for Transport, "Road Safety Data," data.gov.uk, \[Online\]. Available: [https://www.data.gov.uk/dataset/cb7ae6f0-4be6-49359277-47e5ce24a11f/road-safety-data.](https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data) \[Accessed: Dec. 11, 2024\].
+
+‌\[3\]“Creating websites with Quarto and GitHub,” *YouTube*. http://www.youtube.com/playlist?list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo (accessed Dec. 11, 2024).
 
 For more detailed information, please refer to the original publication.

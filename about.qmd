@@ -6,9 +6,9 @@
 title: "About Me"
 ---
 
-![](docs/docs/myimage.jpg){fig-align="left" width="162"}
-
 # Venkata Lakshmi Parimala Pasupuleti
+
+![](myimage.jpg){width="169"}
 
 ### Software Engineer \| Web & Database Development Specialist
 
@@ -24,57 +24,59 @@ In addition to my technical expertise, I have worked on multiple projects in the
 
 # Experience
 
-#### **Senior Software Engineer,** Entrata India (Db Xento Systems) – Pune, India **Jan 2023 – Aug 2024** 
+##### **Senior Software Engineer,** Entrata India (Db Xento Systems) – Pune, India **Jan 2023 – Aug 2024**
 
--    Participated in Agile Scrum processes, leading to Sprint planning & story point estimation using Planning Poker and the Fibonacci sequence.      
+-   Participated in Agile Scrum processes, leading to Sprint planning & story point estimation using Planning Poker and the Fibonacci sequence.
 
--    Optimized database performance by designing and refining SQL queries, implementing caching strategies, and utilizing triggers, log tables, and audit tables to improve efficiency and scalability.     
+-   Optimized database performance by designing and refining SQL queries, implementing caching strategies, and utilizing triggers, log tables, and audit tables to improve efficiency and scalability.
 
--   Involved in the team of database architecture and made crucial decisions while developing complex database project schemas.    
+-   Involved in the team of database architecture and made crucial decisions while developing complex database project schemas.
 
--    Developed and mentored web applications development projects using, php, and AWS services, focusing on cloud-based architecture to enhance deployment and system performance.      
+-   Developed and mentored web applications development projects using, php, and AWS services, focusing on cloud-based architecture to enhance deployment and system performance.
 
 -   Built end-to-end software solutions for property management and affordable housing, including rental subsidies, rent calculations, ledger management, and payment processing features, ensuring compliance with housing regulations.
 
--    Led the development and deployment of a microservices architecture using Docker , achieving a 50% improvement in system scalability and a 30% reduction in deployment time.      
+-   Led the development and deployment of a microservices architecture using Docker , achieving a 50% improvement in system scalability and a 30% reduction in deployment time.
 
--    Led the bug monitoring, reduced the bug count, and maintained the bug count to less than 10 for up to 6 months.    
+-   Led the bug monitoring, reduced the bug count, and maintained the bug count to less than 10 for up to 6 months.
 
--    Managed financial functionalities, including HAP (Housing Assistance Payments) allocation, rent schedules, gross rent updates, tax credits, HUD (Housing and Urban Development) payments, subsidies, and income limits.  •  Ensured compliance with federal and state regulations for housing subsidies and income restrictions.
+-   Managed financial functionalities, including HAP (Housing Assistance Payments) allocation, rent schedules, gross rent updates, tax credits, HUD (Housing and Urban Development) payments, subsidies, and income limits.
 
-#### **Software Engineer,** Entrata India (Db Xento Systems) – Pune, India **Oct 2018 – Dec 2022** 
+-   Ensured compliance with federal and state regulations for housing subsidies and income restrictions.
+
+##### **Software Engineer,** Entrata India (Db Xento Systems) – Pune, India **Oct 2018 – Dec 2022**
 
 -   Assisted, Developed and deployed complex web designs for property management and rental solutions using PHP for backend and Multiple front-end technologies.
 
--    Developed the php unit tests and helped the product to achieve the performance improvement.     
+-   Developed the php unit tests and helped the product to achieve the performance improvement.
 
--    Improved application performance by optimizing SQL queries by learning query optimization techniques with collaboration of data architects and implementing indexing and database partitioning.
+-   Improved application performance by optimizing SQL queries by learning query optimization techniques with collaboration of data architects and implementing indexing and database partitioning.
 
--    Collaborated closely with cross-functional teams in an Agile environment, participating in Sprint planning, & daily standups.      
+-   Collaborated closely with cross-functional teams in an Agile environment, participating in Sprint planning, & daily standups.
 
--    Done Peer code review and helped maintain the quality of the code.
+-   Done Peer code review and helped maintain the quality of the code.
 
--    Improved the debugging techniques and attended to the most of the urgent bugs and resolved them for clients reducing system downtime by  
+-   Improved the debugging techniques and attended to the most of the urgent bugs and resolved them for clients reducing system downtime by
 
 -   identifying and resolving critical issues resulting in receiving appreciation badges from the manager.
 
-**Associate Software Engineer,** Entrata India – Pune, India **Jul 2017 – Sep 2018**
+##### **Associate Software Engineer,** Entrata India – Pune, India **Jul 2017 – Sep 2018**
 
--    Assisted in developing and maintaining full-stack applications using HTML,JavaScript, AJAX, jQuery, PHP, and PostgresSQL. 
+-   Assisted in developing and maintaining full-stack applications using HTML,JavaScript, AJAX, jQuery, PHP, and PostgresSQL.
 
--   Developed and deployed minor modules for the property management     
+-   Developed and deployed minor modules for the property management
 
--   Participated in bug fixing, code debugging, and performance boosts.  
+-   Participated in bug fixing, code debugging, and performance boosts.
 
 -   Gained hands-on experience in Web development,Agile methodologies, actively involved in Sprint planning, and daily standups.
 
-#### **Trainee, Entrata India** (Db Xento Systems)  **– Pune, India       Jan 2017 – Jun 2017** 
+##### **Trainee, Entrata India** (Db Xento Systems)          **Pune, India Jan 2017 – Jun 2017**
 
--    Acquired foundational skills in software development by learning key technologies such as PHP Concepts, Database technoques, and UI design and development.
+-   Acquired foundational skills in software development by learning key technologies such as PHP Concepts, Database technoques, and UI design and development.
 
--    Worked closely with senior developers to understand Agile practices, participating in Sprint meetings and learning the fundamentals of version control using Git.
+-   Worked closely with senior developers to understand Agile practices, participating in Sprint meetings and learning the fundamentals of version control using Git.
 
--    Completed comprehensive training in object-oriented programming (OOP) principles and database management, laying the groundwork.
+-   Completed comprehensive training in object-oriented programming (OOP) principles and database management, laying the groundwork.
 
 ### Technical Skills
 
@@ -92,29 +94,29 @@ In addition to my technical expertise, I have worked on multiple projects in the
 
 -   **Version Control**: GIT, SVN
 
--   **Programming and Operating Systems**: PHP, Python, R , Object Oriented Programming (OOPS), Unit tests, Web Services, AJAX, HTML, JavaScript, CSS, jQuery, MVC, Design patterns, Fusebox, Unix, Windows, Linux \
+-   **Programming and Operating Systems**: PHP, Python, R , Object Oriented Programming (OOPS), Unit tests, Web Services, AJAX, HTML, JavaScript, CSS, jQuery, MVC, Design patterns, Fusebox, Unix, Windows, Linux\
 
--   **Testing**: PHP Unit, Test Driven Development (TDD), or Behavior Driven Design (BDD), Selenium Automation 
+-   **Testing**: PHP Unit, Test Driven Development (TDD), or Behavior Driven Design (BDD), Selenium Automation
 
--   **Databases & Storage**: Postgres, MySQL, Oracle \
+-   **Databases & Storage**: Postgres, MySQL, Oracle\
 
--   **Cloud Computing concepts**:RDS ,AWS (S3, EC2),Data Glue \
+-   **Cloud Computing concepts**:RDS ,AWS (S3, EC2),Data Glue\
 
 -   **Distributed Technologie**s: Hive\
 
 -   **Environment Management**: Docker or Containers\
 
--   **CI/CD** : GitHub \
+-   **CI/CD** : GitHub\
 
--   **Reporting Tools** : PowerBI \
+-   **Reporting Tools** : PowerBI\
 
--   **Web Frameworks**: Basic NodeJS \
+-   **Web Frameworks**: Basic NodeJS\
 
--   **Libraries/Frameworks**: PyTorch, NumPy, Pandas Methodologies: Data Analysis. Data Modeling \
+-   **Libraries/Frameworks**: PyTorch, NumPy, Pandas Methodologies: Data Analysis. Data Modeling\
 
--   **Version Control, Task &project Management & Performance Monitoring**: SVN, Git, JIRA, ClickUp, New Relic, Agile methodologies, Waterfall,scrum 
+-   **Version Control, Task &project Management & Performance Monitoring**: SVN, Git, JIRA, ClickUp, New Relic, Agile methodologies, Waterfall,scrum
 
--   **Designing**: Adobe Acrobat DC Pro, Figma, Adobe Photoshop \
+-   **Designing**: Adobe Acrobat DC Pro, Figma, Adobe Photoshop\
 
 -   **Queue Management**: RabbitMQ \
 
@@ -122,87 +124,87 @@ In addition to my technical expertise, I have worked on multiple projects in the
 
 ### ORGANIZATION PROJECTS
 
-#### **Importing Income Limits and Module Development**   
+#### **Importing Income Limits and Module Development**
 
--    Processed 1.6 million records of HUD and Tax Credit income limits across five years by designing generic SQL scripts for importing and structuring data.
+-   Processed 1.6 million records of HUD and Tax Credit income limits across five years by designing generic SQL scripts for importing and structuring data.
 
--    Automated workflows for eligibility definition based on family size, income levels, and percentage thresholds.
+-   Automated workflows for eligibility definition based on family size, income levels, and percentage thresholds.
 
 -   Technologies: PHP, Postgres SQL, PLSQL, GIT, Excel.
 
-#### **Residents' Sensitive Data Encryption**   
+#### **Residents' Sensitive Data Encryption**
 
 -   Encrypted 100% of resident data, including phone numbers and SSNs, across the entire database using Libsodium encryption.
 
--    Updated over 50% of the product code to ensure encryption compliance during data insertion and retrieval.
+-   Updated over 50% of the product code to ensure encryption compliance during data insertion and retrieval.
 
 -   Technologies: PHP, Libsodium, Postgres SQL, PLSQL, GIT.
 
-#### **State-Wise Certification Document Development** 
+#### **State-Wise Certification Document Development**
 
--    Created 56 state-specific certification documents with merge fields for affordable housing certifications.  
+-   Created 56 state-specific certification documents with merge fields for affordable housing certifications.
 
--    Integrated document storage and retrieval via AWS S3, enabling seamless client access.  
+-   Integrated document storage and retrieval via AWS S3, enabling seamless client access.
 
--    Technologies: PHP, Postgres SQL, AWS S3, Adobe Acrobat DC Pro, GIT. 
+-   Technologies: PHP, Postgres SQL, AWS S3, Adobe Acrobat DC Pro, GIT.
 
-#### **Client Document Migration to AWS**   
+#### **Client Document Migration to AWS**
 
--    Migrated thousands of client documents from server storage to AWS S3, resolving 90% space constraints on legacy systems.  
+-   Migrated thousands of client documents from server storage to AWS S3, resolving 90% space constraints on legacy systems.
 
--    Conducted database data creation, physical document migration, and comprehensive UI testing.  
+-   Conducted database data creation, physical document migration, and comprehensive UI testing.
 
--    Technologies: PHP, Postgres SQL, AWS S3, GIT.
+-   Technologies: PHP, Postgres SQL, AWS S3, GIT.
 
-#### **Service-Based Architecture Revamp**   
+#### **Service-Based Architecture Revamp**
 
--    Converted 20% of product modules into a service-based architecture, ensuring scalability and efficient data sharing across products.  
+-   Converted 20% of product modules into a service-based architecture, ensuring scalability and efficient data sharing across products.
 
--    Improved modularity and reduced interdependencies in the product logic.  
+-   Improved modularity and reduced interdependencies in the product logic.
 
--    Technologies: PHP, Postgres SQL, AWS S3, GIT.  
+-   Technologies: PHP, Postgres SQL, AWS S3, GIT.
 
-#### **Database Architecture Overhaul for Client Documents**   
+#### **Database Architecture Overhaul for Client Documents**
 
--   Redesigned outdated document storage architecture, migrating hundreds of thousands of records to a modern structure.  
+-   Redesigned outdated document storage architecture, migrating hundreds of thousands of records to a modern structure.
 
--    Provided post-deployment support for six months, stabilizing the ecosystem and resolving client-specific issues.
+-   Provided post-deployment support for six months, stabilizing the ecosystem and resolving client-specific issues.
 
--    Technologies: PHP, Postgres SQL, Lucidchart, Adobe Acrobat DC Pro, GIT.
+-   Technologies: PHP, Postgres SQL, Lucidchart, Adobe Acrobat DC Pro, GIT.
 
-#### **Redesigning Income Limits Module** 
+#### **Redesigning Income Limits Module**
 
--    Applied deep learning frameworks and Python to automate data processing workflows, leveraging API calls and OpenAI models to replace manual Excel-based operations. 
+-   Applied deep learning frameworks and Python to automate data processing workflows, leveraging API calls and OpenAI models to replace manual Excel-based operations.
 
--    Implemented a custom neural network architecture inspired by literature to optimize the transformation and validation of complex datasets. 
+-   Implemented a custom neural network architecture inspired by literature to optimize the transformation and validation of complex datasets.
 
--    Demonstrated clear communication by articulating technical concepts and project outcomes to stakeholders. 
+-   Demonstrated clear communication by articulating technical concepts and project outcomes to stakeholders. 
 
--    Technologies: Python, OpenAI, PyTorch,Pandas, Postgres SQL, GIT.
+-   Technologies: Python, OpenAI, PyTorch,Pandas, Postgres SQL, GIT.
 
-#### **Microservices for Financial Operations** 
+#### **Microservices for Financial Operations**
 
 -   Designed microservices to handle critical financial functionalities such as rent schedules, gross rent updates, and HUD-compliant tax credit calculations.
 
--    Integrated these services into the main product to ensure compliance with state and federal regulations.
+-   Integrated these services into the main product to ensure compliance with state and federal regulations.
 
-#### **Debugging and Performance Optimization Tools** 
+#### **Debugging and Performance Optimization Tools**
 
--    Developed internal debugging tools to identify and resolve system bottlenecks, reducing debugging time by 40%.
+-   Developed internal debugging tools to identify and resolve system bottlenecks, reducing debugging time by 40%.
 
--    Improved application performance through SQL query optimization, reducing response times across high-traffic modules.
+-   Improved application performance through SQL query optimization, reducing response times across high-traffic modules.
 
-### ACADEMIC PROJECTS 
+### ACADEMIC PROJECTS
 
-#### **CrashClarity Project**   
+#### **CrashClarity Project**
 
 -   Analyzed traffic accident data using R to identify patterns and contributing factors.
 
--    Applyed statistical methods and visualization techniques for Machine Learning Predictive Modeling.
+-   Applyed statistical methods and visualization techniques for Machine Learning Predictive Modeling.
 
--    Presented insights via an interactive website hosted on GitHub Pages, enhancing data accessibility and decision-making.
+-   Presented insights via an interactive website hosted on GitHub Pages, enhancing data accessibility and decision-making.
 
--    Technologies: R-programming,Statistical methods, GIT.
+-   Technologies: R-programming,Statistical methods, GIT.
 
 ### Education
 
